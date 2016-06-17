@@ -5,7 +5,10 @@ import 'font-awesome-webpack';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './containers/App';
+import Provider from 'framework/Provider'
+import App from 'containers/App';
+
+
 
 import { Pool, Entity } from './framework'
 import BookState from './state/BookState'
@@ -25,6 +28,8 @@ console.log(pool)
 
 
 ReactDOM.render(
-  <App pool={pool}/>,
+  <Provider pool={pool}>
+    <App />
+  </Provider>,
   document.getElementById('application')
 );
