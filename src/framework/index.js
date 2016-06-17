@@ -24,12 +24,27 @@ export class Entity {
 export class Pool {
   constructor () {
     this._entities = []
+    this._listeners = []
   }
 
   createEntity () {
     let entity = new Entity()
     this._entities.push(entity)
+    this.notifyListeners()
     return entity
+  }
+
+  notifyListeners() {
+    this._listeners.slice().forEach(listener => listener())
+  }
+
+  subscribe(callback) {
+    this._listeners.push(callback);
+
+    return function unsubscribe() {
+      var index = this._listeners.indexOf(listener);
+      this._listeners.splice(index, 1);
+    };
   }
 
   query( componentClass ) {
